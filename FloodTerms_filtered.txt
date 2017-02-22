@@ -1,4 +1,4 @@
-Generic Words
+[Generic Words]
 alarm
 action plan 
 active resources 
@@ -25,15 +25,9 @@ extreme
 hazzard
 killed
 
-
-Flooding Words
-atmospheric moisture
+[Specific Flooding Words]
 base flood 
 base flood elevation
-climate change
-crest
-downpours
-extreme rainfall
 flash flood 
 flooded homes
 flooded cars
@@ -41,11 +35,11 @@ flood classification
 flood crest 
 flood depth 
 flood elevation 
-Flood Elevation Study 
+Flood elevation study 
 flood hazard level 
-Flood Insurance Rate Map (FIRM) 
-Flood Insurance Study (FIS) 
-Flood Mitigation Assistance (FMA) 
+Flood insurance rate Map
+Flood insurance study  
+Flood mitigation assistance 
 flood of record 
 floodplain 
 floodplain fill 
@@ -53,22 +47,30 @@ floodplain management ordinance
 flood-proofing 
 flood stage
 floodway 
+
+[Generic Flooding Words]
+atmospheric moisture
+climate change
+crest
+downpours
+extreme rainfall
 global warming
 intense rainfall
 precipitation
 moisture
 natural disaster
+NOAA 
+National Oceanic Atmospheric Administration
 rain
 rainfall
 river
 sea levels
-special flood hazard area (SFHA) 
+special flood hazard are
 storm 
 storm intensity
+swamped
 thunder storm
 torrential rain
 weather
 wet
 wetter
-NOAA (National Oceanic Atmospheric Administration)
-swamped
