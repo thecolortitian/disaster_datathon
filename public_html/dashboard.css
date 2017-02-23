@@ -33,3 +33,7 @@ table, th, td
 #tblDashboard #headingRow{
 	background-color:#b3d9ff;
 }
+
+.traffic-light{
+	width:50px;
+}
