@@ -1,14 +1,18 @@
-import pandas as pd
-import time
+
 import json
-#from requests import Session
-import urllib
-import geocode
-import nltk
 
 
-with open('floods.json') as data_file:    
-    data = json.load(data_file)
+
+with open('1275_guardian.json') as data_file:    
+    d = json.load(data_file)
+
+data = []
+flood_words = ["flood"]
+
+for article in d:
+	title = article["title"]
+	if "flood" in title:
+		data.append(article)
 
 
 times = ["yesterday", "today", "this morning"]
