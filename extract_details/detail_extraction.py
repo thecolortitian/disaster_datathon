@@ -1,10 +1,4 @@
-import pandas as pd
-import time
 import json
-#from requests import Session
-import urllib
-import geocode
-import nltk
 
 
 with open('1275_guardian.json') as data_file:    
