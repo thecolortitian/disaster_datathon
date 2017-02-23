@@ -3,7 +3,6 @@ import time
 import json
 #from requests import Session
 import urllib
-import geocode
 import re
 import math
 
@@ -17,18 +16,20 @@ countries = [z.replace(" {Republic}", "") for z in countries.split("\n")]
 
 
 def __add_to_dict_if_not_in(dictionary, word):
-	if word in dictionary:
-		if word not in dictionary.keys()
-			dictionary[word] = 1
-		else:
-			dictionary[word] += 1
+	if (len(dictionary) == 0) or (word not in dictionary.keys()):
+		dictionary[word] = 1
+	else:
+		dictionary[word] += 1
+
+	return dictionary
 
 
 def extract_location(json_records):
-	for article in flood_articles:
-		print(article["title"])
+	dictionary = {}
+	for article in json_records:
 		most_affected_places = {}
-		content = article["content"].remove(".", "").remove(",", "").split(" ") + article["title"].split(" ")
+		dictionary[article["title"]] = []
+		content = article["content"].replace(".", "").replace(",", "").split(" ") + article["title"].split(" ")
 		caps = [i for i in content if i.istitle()]
 		for word in caps:
 			if word in towns_and_cities:
@@ -39,8 +40,12 @@ def extract_location(json_records):
 				if word in most_affected_places:
 					most_affected_places = __add_to_dict_if_not_in(most_affected_places, word)
 
-		print(most_affected_places)
-		print()
+		list_of_lists  = [[k, most_affected_places[k]] for k in most_affected_places]
+		
+		list_of_lists = sorted(list_of_lists, key = lambda x: (-x[1]))
+		dictionary[article["title"]] = [x[0] for x in list_of_lists]
+	
+	return dictionary
 
 
 with open('1275_guardian.json') as data_file:    
@@ -54,6 +59,8 @@ for article in data:
 	if "flood" in title:
 		flood_articles.append(article)
 
+test = extract_location(flood_articles)
 
-extract_location(flood_articles)
+for i in test:
+	print (i, test[i])
 
