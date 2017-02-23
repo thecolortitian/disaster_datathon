@@ -1,19 +1,18 @@
 import json
 
-
 with open('1275_guardian.json') as data_file:    
     d = json.load(data_file)
 
 data = []
 flood_words = ["flood"]
 
-times = ["yesterday", "today", "this morning"]
-
-
 for article in d:
 	title = article["title"]
 	if "flood" in title:
-		flood_articles.append(article)
+		data.append(article)
+
+
+times = ["yesterday", "today", "this morning"]
 
 for t in times:
 	for article in data:
