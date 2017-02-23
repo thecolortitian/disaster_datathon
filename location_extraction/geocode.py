@@ -18,12 +18,7 @@ def geocode(location):
 		for i in types:
 			if i in not_a_place:
 				return False
-
-		return answer[0]["address_components"][0]["long_name"]
-
+		return answer[0]["geometry"]["location"]
 	else: 
 		return False
 
-	return data
-
-print(geocode("Paris"))
