@@ -69,6 +69,14 @@ for article in data:
 
 test = extract_location(flood_articles)
 
+test = ['Cardiff', 'Broadway', 'York', 'Walton', 'Eagle', 'Bridlington', 
+'Mytholmroyd', 'Whitby', 'Plymouth', 'Leeds', 'Dartmouth', 'London', 
+'Doncaster', 'Law', 'Scarborough',
+'Sandy', 'California', 'Read', 'Sheffield', 
+,'Read', 'Lancaster', 'Houston', 'York', 'Oxford', 'Keith',
+ 'Westminster', 'Read', 'Water', 'Leeds', 'Cardiff', 'Manchester', 
+ 'Street', 'Sandy']
+
 locations = []
 
 place_names = []
@@ -77,9 +85,13 @@ for i in test:
 	places = test[i]
 	for place in places:
 		place_names.append(place)
-		#lat_lng = geocode.geocode(place)
-		"""if lat_lng != False:
-			locations.append(lat_lng)"""
+		lat_lng = geocode.geocode(place)
+		if lat_lng != False:
+			locations.append(lat_lng)
+
+print(locations)
+
+
 
 
 ['Cardiff', 'Broadway', 'York', 'Walton', 'Eagle', 'Bridlington', 
@@ -96,12 +108,21 @@ for i in test:
 
 
 place_names = {
-	"London": 7074265, 
+	'Cardiff': 341000,
+	'Broadway': 2540,
+	'York': 198051,
+	'Walton': 22834, 
+	'Eagle': 21646, 
+	'Bridlington': 33837, 
+	'Mytholmroyd': 3949, 
+	'Whitby': 13213,
+	'Plymouth', 
+	'Leeds', 
+	'Dartmouth', 
+	'London',
+
 
 }
-
-print(place_names)
-
 
 
 
