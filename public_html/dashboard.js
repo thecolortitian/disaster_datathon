@@ -9,7 +9,7 @@ function initMap() {
 
   // Create an array of alphabetical characters used to label the markers.
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  var data = [109805, 198051, 10887, 11805, 1450000, 150200, 341000, 22834, 2196000, 2550000, 625698, 33837, 3949, 21646, 38800000, 256400, 5064, 551800, 226841, 8674000, 751500, 2540, 13213]
+  var data = [751500, 2550000, 198051, 2540, 1450000, 8674000, 226841, 109805, 256400, 341000, 33837, 10887, 3949, 22834, 21646, 625698, 551800, 13213, 2196000, 150200, 11805]
 
   // Add some markers to the map.
   // Note: The code uses the JavaScript Array.prototype.map() method to
@@ -18,7 +18,8 @@ function initMap() {
   var markers = locations.map(function(location, i) {
     return new google.maps.Marker({
       position: location,
-      label: "Fl"//labels[i % labels.length]
+      label: "Fl", //labels[i % labels.length]
+      title: data[i].toString()
     });
   });
 
@@ -26,21 +27,21 @@ function initMap() {
   var markerCluster = new MarkerClusterer(map, markers,
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
-
   for (var i = 0; i < markers.length; i++) {
+    pop_value = data[i].toString()
     var infowindow =  new google.maps.InfoWindow({
-        content: 'Population: ' + data[i].toString()
+        content: 'Population: ' + pop_value
       });
-    marker = markers[i]
-    marker.addListener('mouseover', function() {
+    markers[i].addListener('mouseover', function() {
+        infowindow.setContent('Population: ' + this.title)
         infowindow.open(map, this);
     });
 
     // assuming you also want to hide the infowindow when user mouses-out
-    marker.addListener('mouseout', function() {
+    markers[i].addListener('mouseout', function() {
         infowindow.close();
     });
   }
 }
 
-var locations = [{lng: -1.128462, lat: 53.52282}, {lng: -76.727745, lat: 39.9625984}, {lng: -111.8389726, lat: 40.5649781}, {lng: -117.0693286, lat: 46.3994763}, {lng: -76.3055144, lat: 40.0378755}, {lng: -1.2577263, lat: 51.7520209}, {lng: -3.17909, lat: 51.48158100000001}, {lng: -75.12933509999999, lat: 42.1695296}, {lng: -95.3698028, lat: 29.7604267}, {lng: -2.2426305, lat: 53.4807593}, {lng: -0.399752, lat: 54.283113}, {lng: -0.198802, lat: 54.08535}, {lng: -1.9837091, lat: 53.7309278}, {lng: -106.7234639, lat: 39.576406}, {lng: -70.6672621, lat: 41.9584457}, {lng: -1.470085, lat: 53.38112899999999}, {lng: -0.1356583, lat: 51.4974948}, {lng: -0.1277583, lat: 51.5073509}, {lng: -1.5490774, lat: 53.8007554}, {lng: -73.85823979999999, lat: 41.1115447}, {lng: -0.613347, lat: 54.486335}]
+var locations = [{lng: -1.5490774, lat: 53.8007554}, {lng: -2.2426305, lat: 53.4807593}, {lng: -76.727745, lat: 39.9625984}, {lng: -73.85823979999999, lat: 41.1115447}, {lng: -76.3055144, lat: 40.0378755}, {lng: -0.1277583, lat: 51.5073509}, {lng: -0.1356583, lat: 51.4974948}, {lng: -1.128462, lat: 53.52282}, {lng: -70.6672621, lat: 41.9584457}, {lng: -3.17909, lat: 51.48158100000001}, {lng: -0.198802, lat: 54.08535}, {lng: -111.8389726, lat: 40.5649781}, {lng: -1.9837091, lat: 53.7309278}, {lng: -75.12933509999999, lat: 42.1695296}, {lng: -106.7234639, lat: 39.576406}, {lng: -0.399752, lat: 54.283113}, {lng: -1.470085, lat: 53.38112899999999}, {lng: -0.613347, lat: 54.486335}, {lng: -95.3698028, lat: 29.7604267}, {lng: -1.2577263, lat: 51.7520209}, {lng: -117.0693286, lat: 46.3994763}]
