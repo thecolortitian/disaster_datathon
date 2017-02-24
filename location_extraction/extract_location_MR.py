@@ -5,6 +5,7 @@ import json
 import urllib
 import re
 import math
+import geocode
 
 with open('uk_towns_and_cities.txt') as data_file:    
     read_data = data_file.read()
@@ -31,7 +32,14 @@ def extract_location(json_records):
 		dictionary[article["title"]] = []
 		content = article["content"].replace(".", "").replace(",", "").split(" ") + article["title"].split(" ")
 		caps = [i for i in content if i.istitle()]
+		# ****** *******
 		for word in caps:
+			index_of_word = caps.index(word)
+			if caps[index_of_word - 1] + " " + word in article:
+				word = caps[index_of_word - 1] + " " + word 
+			elif word + " " + caps[index_of_word + 1]  in article:
+				word = caps[index_of_word - 1] + " " + word 
+			# ****** *******
 			if word in towns_and_cities:
 				if word in towns_and_cities: 
 					most_affected_places = __add_to_dict_if_not_in(most_affected_places, word)
@@ -61,6 +69,41 @@ for article in data:
 
 test = extract_location(flood_articles)
 
+locations = []
+
+place_names = []
+
 for i in test:
-	print (i, test[i])
+	places = test[i]
+	for place in places:
+		place_names.append(place)
+		#lat_lng = geocode.geocode(place)
+		"""if lat_lng != False:
+			locations.append(lat_lng)"""
+
+
+['Cardiff', 'Broadway', 'York', 'Walton', 'Eagle', 'Bridlington', 
+'Mytholmroyd', 'Whitby', 'Plymouth', 'Leeds', 'Dartmouth', 'London', 
+'Doncaster', 'Law', 'Scarborough',
+'Sandy', 'California', 'Read', 'Sheffield', 
+,'Read', 'Lancaster', 'Houston', 'York', 'Oxford', 'Keith',
+ 'Westminster', 'Read', 'Water', 'Leeds', 'Cardiff', 'Manchester', 
+ 'Street', 'Sandy']
+
+
+
+
+
+
+place_names = {
+	"London": 7074265, 
+
+}
+
+print(place_names)
+
+
+
+
+
 
