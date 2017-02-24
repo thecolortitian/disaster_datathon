@@ -2,9 +2,11 @@ import webbrowser
 import pandas as pd
 import time
 import json
-import urllib2
-import re
+import urllib.request
 import math
+import re
+import nltk
+from nltk.tokenize import sent_tokenize
 
 f = open('dashboard.html','w')
 towns_and_cities = []
@@ -15,8 +17,6 @@ with open('../location_extraction/uk_towns_and_cities.txt') as towns_and_cities_
 towns_and_cities=[re.sub(r'\(.+?\)\s*', '', x) for x in read_data.split("\n") if len(x) > 0]
 towns_and_cities_file.close()
 
-print(str(towns_and_cities))
-
 with open('../location_extraction/countries.txt') as countries_file:    
     countries = countries_file.read()
 countries = [z.replace(" {Republic}", "") for z in countries.split("\n")]
@@ -26,16 +26,22 @@ def extract_location(title,content):
 	dictionary = {}	
 	most_affected_places = {}
 	dictionary[title] = []
-	content = content.replace(".", "").replace(",", "").split(" ") + title.split(" ")
+	new_content = content.replace(".", "").replace(",", "").split(" ") + title.split(" ")
+	caps = [i for i in new_content if i.istitle()]
 
-	caps = [i for i in content if i.istitle()]
+	for word in caps:
+		index_of_word = caps.index(word)
+		if caps[index_of_word - 1] + " " + word in content:
+			word = caps[index_of_word - 1] + " " + word 
+		elif (index_of_word+1) < len(caps) and word + " " + caps[index_of_word + 1]  in content:
+			word = caps[index_of_word - 1] + " " + word 
 	for word in caps:
 		if word in towns_and_cities:
 			if word in towns_and_cities: 
-				most_affected_places = __add_to_dict_if_not_in(most_affected_places, word)
+				most_affected_places = __add_to_dict_if_not_in(most_affected_places, str(word))
 		elif word in countries:
 			if word in most_affected_places:
-				most_affected_places = __add_to_dict_if_not_in(most_affected_places, word)
+				most_affected_places = __add_to_dict_if_not_in(most_affected_places, str(word))
 
 	list_of_lists  = [[k, most_affected_places[k]] for k in most_affected_places]
 	
@@ -51,6 +57,23 @@ def __add_to_dict_if_not_in(dictionary, word):
 		dictionary[word] += 1
 
 	return dictionary
+
+def extract_number_sentences(content):
+    sents = sent_tokenize(content)
+    res_table = (list(map(lambda x: re.findall(r"\d+",x), sents)))
+    res_sent=[]
+    for j in range(len(res_table)):
+        res=res_table[j]
+        if len(res)>0 :
+            for k in reversed(range(len(res))):
+                digit=res[k]
+                #print digit
+                if int(digit) > 1900 and int(digit) < 2100:
+                    res.pop(k)
+        #print res
+        if len(res) > 0:
+            res_sent.append(sents[j])
+    return res_sent
 
 ##################     extracting flood data         ########################
 path = '../news_source_files/1275_guardian.json'
@@ -101,21 +124,22 @@ message = """
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 		<title>Disaster Dashboard</title>
 		<link rel="stylesheet" type="text/css" href="dashboard.css">
 	</head>
 	<body>
-		<div id="mainDiv">
+		<div id="notmap">
 			<table id="tblDashboard">
 				<tr id="headingRow">
 					<th>Incident</th>
 					<th>Severity</th>
 					<th>News Links</th>
 					<th>Location</th>
-					<th>Resiliance</th>
+					<th>Stats</th>
 				</tr>"""
 
-for i in xrange(len(match_cont)) :
+for i in range(len(match_cont)) :
     isDisaster=False
     if match_title[i][0]+match_cont[i][0] > 0:
         isDisaster=True
@@ -137,18 +161,27 @@ for i in xrange(len(match_cont)) :
         location = {}
         location = extract_location(df.ix[i]['title'],df.ix[i]['content'])
 
-    	message+="""
-    		<tr>
-    			<td>Flood</td>
-    			<td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
-    			<td><a target="_blank" href='""" + str(df.ix[i]['url']) + """'>""" + str(df.ix[i]['url']) + """</a</td>
-    			<td>""" + str(location[df.ix[i]['title']])[1:-1] + """</td>
-				<td>Resiliance</td>
-			</tr>"""
+        message+="""
+	    		<tr>
+	    			<td>Flood</td>
+	    			<td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
+	    			<td><a target="_blank" href='""" + str(df.ix[i]['url']) + """'>""" + str(df.ix[i]['url']) + """</a</td>
+	    			<td>""" + str(location[df.ix[i]['title']])[1:-1] + """</td>
+					<td></td>
+				</tr>"""
+
+				#+ str(extract_number_sentences(df.ix[i]['content']))[1:-1] + 
 
 message+="""
 			</table>
 		</div>
+		<div id="map"></div>
+		<script src="dashboard.js"></script>
+	    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+	    </script>
+	    <script async defer
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRiLdGWV3Qt2J1YefTRe0tsCo9Ky736ks&callback=initMap">
+	    </script>
 	</body>
 </html>
 """

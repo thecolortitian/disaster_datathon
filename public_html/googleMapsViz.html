@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Marker Clustering</title>
+    <link rel="stylesheet" type="text/css" href="dashboard.css">
+  </head>
+  <body>
+  <div id="mainDiv">
+    <div id="notmap">
+      <table id="tblDashboard">
+          <tr id="headingRow">
+            <th>Incident</th>
+            <th>Severity</th>
+            <th>News Links</th>
+            <th>Location</th>
+            <th>Resiliance</th>
+          </tr>
+          <tr>
+            <td>Flood</td>
+            <td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
+            <td><a target="_blank" href='https://www.theguardian.com/global-development/2016/dec/30/superstition-prevents-action-against-children-drowning-in-bangladesh'>https://www.theguardian.com/global-development/2016/dec/30/superstition-prevents-action-against-children-drowning-in-bangladesh</a</td>
+            <td></td>
+          <td>Resiliance</td>
+        </tr>
+          <tr>
+            <td>Flood</td>
+            <td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
+            <td><a target="_blank" href='https://www.theguardian.com/uk-news/2016/dec/23/rail-chief-defends-line-closures-for-christmas-engineering-works'>https://www.theguardian.com/uk-news/2016/dec/23/rail-chief-defends-line-closures-for-christmas-engineering-works</a</td>
+            <td>'Read', 'Manchester', 'Mark', 'London', 'Cardiff', 'Broadway'</td>
+          <td>Resiliance</td>
+        </tr>
+          <tr>
+            <td>Flood</td>
+            <td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
+            <td><a target="_blank" href='https://www.theguardian.com/environment/2015/dec/28/unruffled-yorkshire-spirit-dominates-anger-too-flooded-homes'>https://www.theguardian.com/environment/2015/dec/28/unruffled-yorkshire-spirit-dominates-anger-too-flooded-homes</a</td>
+            <td>'York', 'Walton', 'Eagle', 'Bridlington', 'Mytholmroyd', 'Whitby', 'Plymouth', 'Leeds', 'Dartmouth', 'London', 'Doncaster', 'Law', 'Scarborough'</td>
+          <td>Resiliance</td>
+        </tr>
+          <tr>
+            <td>Flood</td>
+            <td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
+            <td><a target="_blank" href='https://www.theguardian.com/environment/2016/dec/19/arctic-ice-melt-already-affecting-weather-patterns-where-you-live-right-now'>https://www.theguardian.com/environment/2016/dec/19/arctic-ice-melt-already-affecting-weather-patterns-where-you-live-right-now</a</td>
+            <td>'Sandy', 'California', 'Read', 'Sheffield'</td>
+          <td>Resiliance</td>
+        </tr>
+          <tr>
+            <td>Flood</td>
+            <td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
+            <td><a target="_blank" href='https://www.theguardian.com/environment/2015/dec/27/uk-floods-and-extreme-global-weather-linked-to-el-nino-and-climate-change'>https://www.theguardian.com/environment/2015/dec/27/uk-floods-and-extreme-global-weather-linked-to-el-nino-and-climate-change</a</td>
+            <td>'Read', 'Lancaster', 'Houston', 'York', 'Oxford', 'Keith'</td>
+          <td>Resiliance</td>
+        </tr>
+          <tr>
+            <td>Flood</td>
+            <td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
+            <td><a target="_blank" href='https://www.theguardian.com/commentisfree/2015/dec/27/dutch-style-delta-plan-floods-uk-netherlands'>https://www.theguardian.com/commentisfree/2015/dec/27/dutch-style-delta-plan-floods-uk-netherlands</a</td>
+            <td>'Westminster', 'Read', 'Water', 'Leeds', 'Cardiff', 'Manchester'</td>
+          <td>Resiliance</td>
+        </tr>
+          <tr>
+            <td>Flood</td>
+            <td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
+            <td><a target="_blank" href='https://www.theguardian.com/environment/2014/dec/28/flood-memories-haunt-residents-sunbury-stormy-winter'>https://www.theguardian.com/environment/2014/dec/28/flood-memories-haunt-residents-sunbury-stormy-winter</a</td>
+            <td>'Street'</td>
+          <td>Resiliance</td>
+        </tr>
+          <tr>
+            <td>Flood</td>
+            <td><img class="traffic-light" src="images/red-traffic-light.png"/></td>
+            <td><a target="_blank" href='https://www.theguardian.com/commentisfree/2013/dec/29/weather-natural-disaster-climate'>https://www.theguardian.com/commentisfree/2013/dec/29/weather-natural-disaster-climate</a</td>
+            <td>'Sandy'</td>
+          <td>Resiliance</td>
+        </tr>
+        </table>
+    </div>
+
+    <div id="map"></div>
+    </div>
+    <script src="dashboard.js"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRiLdGWV3Qt2J1YefTRe0tsCo9Ky736ks&callback=initMap">
+    </script>
+  </body>
+</html>
